@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { PokemonSprite } from './PokemonSprite'
 
 interface Task {
@@ -42,6 +43,7 @@ const ACTION_BUTTONS = [
 export function ProjectCard({ project, onUpdate }: { project: Project; onUpdate: () => void }) {
   const [hovered, setHovered] = useState(false)
   const [loading, setLoading] = useState<string | null>(null)
+  const router = useRouter()
   const runningCount = project.tasks.filter(t => t.status === 'running').length
 
   async function changeStatus(status: string) {
@@ -60,11 +62,12 @@ export function ProjectCard({ project, onUpdate }: { project: Project; onUpdate:
 
   return (
     <div
-      className="bg-gray-900 border border-gray-800 rounded-xl p-3 flex gap-3 transition-colors"
+      className="bg-gray-900 border border-gray-800 rounded-xl p-3 flex gap-3 transition-colors cursor-pointer"
       style={{ borderColor: hovered ? '#4B5563' : undefined }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onTouchStart={() => setHovered(v => !v)}
+      onClick={() => { if (loading === null) router.push(`/project/${project.id}`) }}
     >
       <div className="flex-shrink-0 flex items-center">
         <PokemonSprite
@@ -102,7 +105,7 @@ export function ProjectCard({ project, onUpdate }: { project: Project; onUpdate:
               {availableActions.map(action => (
                 <button
                   key={action.status}
-                  onClick={() => changeStatus(action.status)}
+                  onClick={e => { e.stopPropagation(); changeStatus(action.status) }}
                   disabled={loading !== null}
                   className={`ui-sans text-xs font-semibold px-3 py-1 rounded-md cursor-pointer transition-colors ${action.color} disabled:opacity-50`}
                 >

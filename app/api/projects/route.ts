@@ -19,18 +19,21 @@ export async function GET() {
 export async function POST(req: Request) {
   const { name, description } = await req.json()
 
-  const { data: used } = await supabase.from('used_pokemon').select('pokemon_id')
-  const usedIds = used?.map((u: { pokemon_id: number }) => u.pokemon_id) ?? []
+  // archived 제외하고 활성 프로젝트의 pokemon_id만 중복 방지
+  const { data: activeProjects } = await supabase
+    .from('projects')
+    .select('pokemon_id')
+    .in('status', ['waiting', 'active', 'issue', 'done'])
+
+  const usedIds = activeProjects?.map((p: { pokemon_id: number }) => p.pokemon_id) ?? []
   const pokemonId = await assignRandomPokemon(usedIds)
 
   const { data: project, error } = await supabase
     .from('projects')
-    .insert({ name, description, pokemon_id: pokemonId })
+    .insert({ name, description, pokemon_id: pokemonId, status: 'waiting' })
     .select()
     .single()
+
   if (error) return NextResponse.json({ error }, { status: 500 })
-
-  await supabase.from('used_pokemon').insert({ pokemon_id: pokemonId, project_id: project.id })
-
   return NextResponse.json(project)
 }

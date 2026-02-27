@@ -24,7 +24,7 @@ async function fetchProjects(): Promise<Project[]> {
 
 const TABS = [
   { key: 'inprogress', label: '진행 중' },
-  { key: 'done',       label: '포켓덱스' },
+  { key: 'done',       label: '완료' },
   { key: 'archived',   label: '보관' },
 ] as const
 

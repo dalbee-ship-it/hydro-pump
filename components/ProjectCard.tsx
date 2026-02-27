@@ -95,7 +95,7 @@ export function ProjectCard({
           <div
             className="flex-shrink-0 self-center"
             style={{
-              transform: expanded ? 'translateY(-12px)' : 'translateY(0)',
+              transform: expanded ? 'translateY(-6px)' : 'translateY(0)',
               transition: 'transform 0.3s ease',
             }}
           >

@@ -113,7 +113,7 @@ export function ProjectCard({ project, expandedId, onToggle, onUpdate }: { proje
   return (
     <div
       className={`card ${expanded ? 'expanded' : ''}`}
-      style={{ transform: hovered && !expanded ? 'scale(1.01)' : 'scale(1)' }}
+      style={{ boxShadow: hovered && !expanded ? '0 0 0 1px var(--border-hover)' : undefined }}
     >
       {/* 카드 헤더 */}
       <div

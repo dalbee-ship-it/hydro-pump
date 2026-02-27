@@ -48,7 +48,7 @@ export default function Dashboard() {
   const archived = projects.filter(p => p.status === 'archived' || p.status === 'abandoned')
 
   return (
-    <main className="min-h-screen bg-gray-950">
+    <main className="min-h-screen">
       <DarkraiHeader />
       <div className="max-w-2xl mx-auto px-4 py-6">
         <div className="flex items-center mb-4">

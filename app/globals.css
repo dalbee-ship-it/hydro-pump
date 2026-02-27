@@ -47,9 +47,10 @@ button, a, input, textarea, select, label {
   --progress-track: #e2e8f0;
 }
 
-body {
-  background-color: var(--bg);
+html, body {
+  background-color: var(--bg) !important;
   color: var(--text-primary);
+  min-height: 100vh;
 }
 
 /* 카드 */

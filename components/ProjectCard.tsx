@@ -82,6 +82,16 @@ export function ProjectCard({
 
 
 
+  async function toggleTask(taskId: string, currentStatus: string) {
+    const newStatus = currentStatus === 'done' ? 'queued' : 'done'
+    await fetch(`/api/tasks/${taskId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus }),
+    })
+    onUpdate()
+  }
+
   async function changeStatus(status: string) {
     await fetch(`/api/projects/${project.id}`, {
       method: 'PATCH',
@@ -135,15 +145,26 @@ export function ProjectCard({
               <span className="ui-sans text-xs text-muted flex-shrink-0">{project.progress}%</span>
             </div>
 
-            {!expanded && project.tasks.length > 0 && (
+            {project.tasks.length > 0 && (
               <ul className="mt-1.5 space-y-0.5">
-                {project.tasks.slice(0, 2).map(task => (
-                  <li key={task.id} className="flex items-center gap-1.5 ui-sans" style={{ fontSize: '0.75rem' }}>
-                    <span className={`flex-shrink-0 ${TASK_STATUS_COLOR[task.status]}`}>{TASK_STATUS_ICON[task.status]}</span>
-                    <span className="text-secondary truncate">{task.title}</span>
+                {(expanded ? project.tasks : project.tasks.slice(0, 2)).map(task => (
+                  <li
+                    key={task.id}
+                    className="flex items-center gap-1.5 ui-sans cursor-pointer group"
+                    style={{ fontSize: '0.75rem' }}
+                    onClick={e => { e.stopPropagation(); toggleTask(task.id, task.status) }}
+                  >
+                    <span className={`flex-shrink-0 transition-colors ${task.status === 'done' ? 'text-green-400' : 'text-gray-600 group-hover:text-gray-400'}`}>
+                      {task.status === 'done' ? '✓' : '○'}
+                    </span>
+                    <span className={`truncate transition-colors ${task.status === 'done' ? 'text-muted line-through' : 'text-secondary'}`}>
+                      {task.title}
+                    </span>
                   </li>
                 ))}
-                {project.tasks.length > 2 && <li className="text-muted ui-sans" style={{ fontSize: '0.7rem' }}>+{project.tasks.length - 2} more</li>}
+                {!expanded && project.tasks.length > 2 && (
+                  <li className="text-muted ui-sans" style={{ fontSize: '0.7rem' }}>+{project.tasks.length - 2} more</li>
+                )}
               </ul>
             )}
           </div>

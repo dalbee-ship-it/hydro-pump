@@ -150,7 +150,7 @@ export function ProjectCard({
                         {topTask.status === 'done' ? '✓' : ''}
                       </span>
                     )}
-                    <span className={`truncate ${topTask.status === 'done' ? 'text-muted line-through' : 'text-secondary'}`}>
+                    <span className={`truncate ${topTask.status === 'done' ? 'text-muted' : 'text-secondary'}`}>
                       {topTask.title}
                     </span>
                   </li>
@@ -186,7 +186,7 @@ export function ProjectCard({
                     {task.status === 'done' ? '✓' : ''}
                   </span>
                 )}
-                <span className={`${task.status === 'done' ? 'text-muted line-through' : 'text-secondary'}`}>
+                <span className={`${task.status === 'done' ? 'text-muted' : 'text-secondary'}`}>
                   {task.title}
                 </span>
               </li>

@@ -16,11 +16,9 @@ interface Project {
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const { data } = await supabase
-    .from('projects')
-    .select('*, tasks(*)')
-    .order('created_at', { ascending: false })
-  return (data ?? []) as Project[]
+  const res = await fetch('/api/projects')
+  if (!res.ok) return []
+  return res.json()
 }
 
 const TABS = [

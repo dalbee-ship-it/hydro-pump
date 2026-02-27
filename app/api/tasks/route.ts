@@ -1,16 +1,11 @@
-import { createClient } from '@supabase/supabase-js'
+import { createAdminClient } from '@/lib/supabase'
 import { NextResponse } from 'next/server'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 export async function POST(req: Request) {
+  const supabase = createAdminClient()
   const body = await req.json()
   // { project_id, agent_label, title, status, result? }
 
-  // 기존 태스크 있으면 업데이트, 없으면 생성
   const { data: existing } = await supabase
     .from('tasks')
     .select('id')

@@ -1,13 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
+import { createAdminClient } from '@/lib/supabase'
 import { NextResponse } from 'next/server'
 import { assignRandomPokemon } from '@/lib/pokemon'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
-
 export async function GET() {
+  const supabase = createAdminClient()
   const { data, error } = await supabase
     .from('projects')
     .select('*, tasks(*)')
@@ -17,9 +13,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const supabase = createAdminClient()
   const { name, description } = await req.json()
 
-  // archived 제외하고 활성 프로젝트의 pokemon_id만 중복 방지
   const { data: activeProjects } = await supabase
     .from('projects')
     .select('pokemon_id')

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import { PokemonSprite } from './PokemonSprite'
+import { StatusPicker } from './StatusPicker'
 
 interface Task {
   id: string
@@ -36,20 +37,7 @@ const TASK_STATUS_COLOR: Record<string, string> = {
 const TASK_STATUS_ICON: Record<string, string> = {
   queued: '○', running: '▶', done: '✓', failed: '✗',
 }
-const STATUS_BADGE: Record<string, { label: string; color: string }> = {
-  waiting:  { label: '대기',  color: 'bg-gray-500/20 text-gray-400' },
-  active:   { label: '진행',  color: 'bg-cyan-500/20 text-cyan-400' },
-  issue:    { label: '이슈',  color: 'bg-orange-500/20 text-orange-400' },
-  done:     { label: '완료',  color: 'bg-green-500/20 text-green-400' },
-  archived: { label: '보관',  color: 'bg-gray-700/20 text-gray-500' },
-}
-const ACTION_BUTTONS = [
-  { status: 'waiting',  label: '대기', color: 'bg-gray-600 hover:bg-gray-500 text-white' },
-  { status: 'active',   label: '진행', color: 'bg-cyan-500 hover:bg-cyan-400 text-black' },
-  { status: 'issue',    label: '이슈', color: 'bg-orange-500 hover:bg-orange-400 text-black' },
-  { status: 'done',     label: '완료', color: 'bg-green-500 hover:bg-green-400 text-black' },
-  { status: 'archived', label: '보관', color: 'bg-gray-700 hover:bg-gray-600 text-white' },
-]
+
 const LOG_COLOR: Record<string, string> = {
   system: 'var(--text-muted)',
   agent:  '#22d3ee',
@@ -74,10 +62,8 @@ export function ProjectCard({
   const [logs, setLogs] = useState<Log[]>([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
-  const [statusLoading, setStatusLoading] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
   const runningCount = project.tasks.filter(t => t.status === 'running').length
-  const badge = STATUS_BADGE[project.status]
 
   useEffect(() => {
     if (!expanded) return
@@ -101,13 +87,11 @@ export function ProjectCard({
   }, [logs, expanded])
 
   async function changeStatus(status: string) {
-    setStatusLoading(status)
     await fetch(`/api/projects/${project.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
-    setStatusLoading(null)
     onUpdate()
   }
 
@@ -123,8 +107,6 @@ export function ProjectCard({
     setInput('')
     setSending(false)
   }
-
-  const availableActions = ACTION_BUTTONS.filter(a => a.status !== project.status)
 
   return (
     <div
@@ -151,11 +133,9 @@ export function ProjectCard({
 
           {/* 우측 콘텐츠 */}
           <div className="flex-1 min-w-0 pt-1">
-            {/* 상태 뱃지 + 토글 */}
+            {/* 상태 뱃지(클릭 → 드롭다운) + 토글 */}
             <div className="flex items-center justify-between gap-2 mb-2">
-              <span className={`ui-sans text-xs font-semibold px-2 py-0.5 rounded-full ${badge?.color}`}>
-                {badge?.label}
-              </span>
+              <StatusPicker current={project.status} onChange={changeStatus} />
               <div className="flex items-center gap-2 ui-sans">
                 {runningCount > 0 && (
                   <span className="text-xs text-cyan-400 animate-pulse">{runningCount} running</span>
@@ -236,19 +216,7 @@ export function ProjectCard({
             >→</button>
           </form>
 
-          {/* 상태 변경 버튼 */}
-          <div className="flex flex-wrap gap-1.5 px-4 pb-4">
-            {availableActions.map(action => (
-              <button
-                key={action.status}
-                onClick={() => changeStatus(action.status)}
-                disabled={statusLoading !== null}
-                className={`ui-sans text-xs font-semibold px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${action.color} disabled:opacity-50`}
-              >
-                {statusLoading === action.status ? '...' : action.label}
-              </button>
-            ))}
-          </div>
+
         </div>
       )}
     </div>

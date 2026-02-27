@@ -32,15 +32,6 @@ function formatDue(due: string | null) {
   return { text: `D-${diff}`, color: 'text-muted' }
 }
 
-const TASK_STATUS_COLOR: Record<string, string> = {
-  queued:  'text-gray-500',
-  running: 'text-cyan-400 animate-pulse',
-  done:    'text-green-400',
-  failed:  'text-red-400',
-}
-const TASK_STATUS_ICON: Record<string, string> = {
-  queued: '○', running: '▶', done: '✓', failed: '✗',
-}
 
 
 export function ProjectCard({

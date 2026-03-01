@@ -1,4 +1,4 @@
-# Mega Launcher MVP Implementation Plan
+# Hydro Pump MVP Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
@@ -70,15 +70,15 @@ SUPABASE_SERVICE_ROLE_KEY=...
 ## Task 2: Next.js 프로젝트 초기화
 
 **Files:**
-- Create: `mega-launcher/` (프로젝트 루트)
+- Create: `hydro-pump/` (프로젝트 루트)
 
 **Step 1: 프로젝트 생성**
 ```bash
 cd /root/.openclaw/workspace/projects
-npx create-next-app@latest mega-launcher \
+npx create-next-app@latest hydro-pump \
   --typescript --tailwind --app --no-src-dir \
   --import-alias "@/*"
-cd mega-launcher
+cd hydro-pump
 ```
 
 **Step 2: 의존성 설치**
@@ -112,7 +112,7 @@ npm run dev
 
 **Step 6: Commit**
 ```bash
-git init && git add . && git commit -m "feat: init mega-launcher next.js project"
+git init && git add . && git commit -m "feat: init hydro-pump next.js project"
 ```
 
 ---
@@ -403,7 +403,7 @@ export function BlastoiseHeader() {
         style={{ imageRendering: 'pixelated' }}
       />
       <div>
-        <h1 className="text-2xl font-mono font-bold text-white tracking-tight">Mega Launcher</h1>
+        <h1 className="text-2xl font-mono font-bold text-white tracking-tight">Hydro Pump</h1>
         <p className="text-xs text-gray-500 font-mono">OpenClaw Agent Monitor</p>
       </div>
     </header>
@@ -535,13 +535,13 @@ git add app components && git commit -m "feat: add dashboard and new project pag
 
 **Step 1: GitHub 레포 생성**
 ```bash
-gh repo create dalbee-ship-it/mega-launcher --public --source=. --push
+gh repo create dalbee-ship-it/hydro-pump --public --source=. --push
 ```
 
 **Step 2: Vercel 연결**
 ```bash
 npx vercel --token <VERCEL_TOKEN>
-# 프로젝트명: mega-launcher
+# 프로젝트명: hydro-pump
 ```
 
 **Step 3: 환경변수 Vercel에 등록**
@@ -569,7 +569,7 @@ npx vercel --prod
 # 작업 시작 시
 import httpx
 httpx.post(
-  "https://mega-launcher.vercel.app/api/tasks",
+  "https://hydro-pump.vercel.app/api/tasks",
   json={
     "project_id": "PROJECT_UUID",
     "agent_label": "t-mcp-servers",
@@ -580,7 +580,7 @@ httpx.post(
 
 # 완료 시
 httpx.post(
-  "https://mega-launcher.vercel.app/api/tasks",
+  "https://hydro-pump.vercel.app/api/tasks",
   json={
     "project_id": "PROJECT_UUID",
     "agent_label": "t-mcp-servers",

@@ -1,16 +1,16 @@
-# Mega Launcher
+# Hydro Pump
 
 > AI agent monitoring dashboard with Pokémon evolution — built for [OpenClaw](https://openclaw.ai)
 
-![Mega Launcher Dashboard](https://mega-launcher.vercel.app/og.png)
+![Hydro Pump Dashboard](https://hydro-pump.vercel.app/og.png)
 
-**Live demo:** [mega-launcher.vercel.app](https://mega-launcher.vercel.app)
+**Live demo:** [hydro-pump.vercel.app](https://hydro-pump.vercel.app)
 
 ---
 
 ## What is this?
 
-Mega Launcher turns your AI agent runs into a Pokémon adventure.
+Hydro Pump turns your AI agent runs into a Pokémon adventure.
 
 Each project gets a Pokémon. As your agents complete tasks, the Pokémon evolves. Projects that stall stay stuck as eggs.
 
@@ -48,7 +48,7 @@ import httpx
 PROJECT_ID = "your-project-uuid"  # from Supabase
 
 # Task started
-httpx.post("https://mega-launcher.vercel.app/api/tasks", json={
+httpx.post("https://hydro-pump.vercel.app/api/tasks", json={
     "project_id": PROJECT_ID,
     "agent_label": "unique-agent-label",
     "title": "번역 작업 (claude-code-guide)",
@@ -56,7 +56,7 @@ httpx.post("https://mega-launcher.vercel.app/api/tasks", json={
 })
 
 # Task done
-httpx.post("https://mega-launcher.vercel.app/api/tasks", json={
+httpx.post("https://hydro-pump.vercel.app/api/tasks", json={
     "project_id": PROJECT_ID,
     "agent_label": "unique-agent-label",
     "title": "번역 작업 (claude-code-guide)",
@@ -75,8 +75,8 @@ When progress hits 100%, the project status flips to `done` and the Pokémon rea
 ### 1. Clone
 
 ```bash
-git clone https://github.com/dalbee-ship-it/mega-launcher
-cd mega-launcher
+git clone https://github.com/dalbee-ship-it/hydro-pump
+cd hydro-pump
 npm install
 ```
 

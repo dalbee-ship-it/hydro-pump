@@ -26,7 +26,7 @@ export function BlastoiseHeader() {
               lineHeight: 1,
               color: 'var(--text-primary)',
             }}
-          >Mega Launcher</h1>
+          >Hydro Pump</h1>
           <p className="text-xs tracking-widest" style={{ fontFamily: "'Inter', sans-serif", color: 'var(--text-muted)', marginTop: '2px' }}>
             Active Agent Monitor
           </p>

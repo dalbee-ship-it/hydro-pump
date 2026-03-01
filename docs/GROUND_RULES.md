@@ -1,4 +1,4 @@
-# Mega Launcher — Ground Rules
+# Hydro Pump — Ground Rules
 
 모든 프로젝트와 태스크 관리에 적용되는 규칙.
 

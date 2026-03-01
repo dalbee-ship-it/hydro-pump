@@ -1,16 +1,16 @@
-# Shadowball
+# Aqua Jet
 
 > AI agent monitoring dashboard with Pokémon evolution — built for [OpenClaw](https://openclaw.ai)
 
-![Shadowball Dashboard](https://shadowball.vercel.app/og.png)
+![Aqua Jet Dashboard](https://aqua-jet.vercel.app/og.png)
 
-**Live demo:** [shadowball.vercel.app](https://shadowball.vercel.app)
+**Live demo:** [aqua-jet.vercel.app](https://aqua-jet.vercel.app)
 
 ---
 
 ## What is this?
 
-Shadowball turns your AI agent runs into a Pokémon adventure.
+Aqua Jet turns your AI agent runs into a Pokémon adventure.
 
 Each project gets a Pokémon. As your agents complete tasks, the Pokémon evolves. Projects that stall stay stuck as eggs.
 
@@ -48,7 +48,7 @@ import httpx
 PROJECT_ID = "your-project-uuid"  # from Supabase
 
 # Task started
-httpx.post("https://shadowball.vercel.app/api/tasks", json={
+httpx.post("https://aqua-jet.vercel.app/api/tasks", json={
     "project_id": PROJECT_ID,
     "agent_label": "unique-agent-label",
     "title": "번역 작업 (claude-code-guide)",
@@ -56,7 +56,7 @@ httpx.post("https://shadowball.vercel.app/api/tasks", json={
 })
 
 # Task done
-httpx.post("https://shadowball.vercel.app/api/tasks", json={
+httpx.post("https://aqua-jet.vercel.app/api/tasks", json={
     "project_id": PROJECT_ID,
     "agent_label": "unique-agent-label",
     "title": "번역 작업 (claude-code-guide)",
@@ -75,8 +75,8 @@ When progress hits 100%, the project status flips to `done` and the Pokémon rea
 ### 1. Clone
 
 ```bash
-git clone https://github.com/dalbee-ship-it/shadowball
-cd shadowball
+git clone https://github.com/dalbee-ship-it/aqua-jet
+cd aqua-jet
 npm install
 ```
 

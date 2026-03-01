@@ -3,7 +3,7 @@ import './globals.css'
 import { ThemeProvider } from '@/lib/theme'
 
 export const metadata: Metadata = {
-  title: 'Shadowball',
+  title: 'Aqua Jet',
   description: 'Active Agent Monitor',
   icons: {
     icon: '/favicon.ico',
